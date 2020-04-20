@@ -8,39 +8,134 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ToggleButton
-        android:id="@+id/toggleButton"
-        android:layout_width="84dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:saveEnabled="true"
-        android:text="ToggleButton"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="221dp"
-        android:layout_height="30dp"
-        android:text="Turn On Screen By Shaking"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/toggleButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="154dp"
-        android:layout_height="68dp"
-        android:text="Switch"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.661" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="@string/perfeature"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="60dp"
+            android:background="#E8F1EF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/Clock_ID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/feature1"
+                android:textSize="18sp"
+                android:layout_marginStart="30dp" />
+
+            <Switch
+                android:id="@+id/feature1Switch"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
+                android:width="40dp"
+                android:textColorHighlight="#8BC34A"
+                android:textColorLink="#8BC34A"
+                android:textSelectHandleRight="@android:color/holo_green_light"
+                android:layout_marginEnd="30dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/feature2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="60dp"
+            android:background="#E8F1EF"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/shake_ID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/turn_on_screen_by_shaking"
+                android:textSize="18sp"
+                android:layout_marginStart="30dp" />
+
+            <Switch
+                android:id="@+id/shakeSwitch"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
+                android:width="40dp"
+                android:textColorHighlight="#8BC34A"
+                android:textColorLink="#8BC34A"
+                android:textSelectHandleRight="@android:color/holo_green_light"
+                android:layout_marginEnd="30dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/feature3"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="60dp"
+            android:background="#E8F1EF"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/sleepMode_ID"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/sleep_mode"
+                android:textSize="18sp"
+                android:layout_marginStart="30dp" />
+
+            <EditText
+                android:id="@+id/angular_value_id"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/angular_value"
+                android:inputType="textPersonName"
+                android:textColorHighlight="#8BC34A"
+                android:textColorLink="#8BC34A"
+                android:textSize="12sp"
+                android:autofillHints="" />
+
+
+            <Switch
+                android:id="@+id/sleepmodeSwitch"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
+                android:width="40dp"
+                android:textSelectHandleRight="@android:color/holo_green_light"
+                android:layout_marginEnd="30dp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
