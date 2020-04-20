@@ -3,14 +3,15 @@ package com.example.shakedetect;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.CompoundButton;
-import android.widget.ToggleButton;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity {
-    ToggleButton toggleButton ;
+    Switch aSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPrefs = getSharedPreferences("com.example.shakedetect", MODE_PRIVATE);
-        toggleButton = findViewById(R.id.toggleButton);
-        toggleButton.setChecked(sharedPrefs.getBoolean("NameOfThingToSave", false));
-        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        aSwitch=findViewById(R.id.switch1);
+        aSwitch.setChecked(sharedPrefs.getBoolean("NameOfThingToSave", false));
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
