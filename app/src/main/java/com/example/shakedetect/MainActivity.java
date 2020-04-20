@@ -13,8 +13,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     static final int RESULT_ENABLE = 1;
@@ -84,16 +87,21 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences("MySharedPref", MODE_PRIVATE).edit();
                 angular_value = angular_value_editText.getText().toString();
                 if (isChecked) {
-                    boolean active = deviceManger.isAdminActive(compName);
-                    if (active) {
-                        Intent intent = new Intent(MainActivity.this, SleepModeService.class);
-                        intent.putExtra(degree_id, angular_value);
-                        startService(intent);
-                    } else {
-                        alertDialog();
+                    if (!angular_value.isEmpty()) {
+                        boolean active = deviceManger.isAdminActive(compName);
+                        if (active) {
+                            Intent intent = new Intent(MainActivity.this, SleepModeService.class);
+                            intent.putExtra(degree_id, angular_value);
+                            startService(intent);
+                        } else {
+                            alertDialog();
+                        }
+                        editor.putBoolean("SaveSleepModeSwitch", true);
+                        editor.putString("lastDegree", angular_value);
+                    }else {
+                        sleep_mode_switch.setChecked(false);
+                        Toast.makeText(getApplicationContext() , "enter angular value" , Toast.LENGTH_SHORT).show();
                     }
-                    editor.putBoolean("SaveSleepModeSwitch", true);
-                    editor.putString("lastDegree", angular_value);
                 } else {
                     deviceManger.removeActiveAdmin(compName); // felan
                     stopService(new Intent(MainActivity.this, SleepModeService.class));
