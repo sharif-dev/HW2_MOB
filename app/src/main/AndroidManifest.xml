@@ -3,6 +3,7 @@
     package="com.example.shakedetect">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -11,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AlarmStart"></activity>
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/policies" />
@@ -25,21 +28,30 @@
 
         <service android:name=".ShakeService" />
 
-        <receiver
-            android:name=".DeviceAdmin"
-            android:description="@string/app_name"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/policies" />
+<!--        <receiver-->
+<!--            android:name=".DeviceAdmin"-->
+<!--            android:description="@string/app_name"-->
+<!--            android:label="@string/app_name"-->
+<!--            android:permission="android.permission.BIND_DEVICE_ADMIN">-->
+<!--            <meta-data-->
+<!--                android:name="android.app.device_admin"-->
+<!--                android:resource="@xml/policies" />-->
 
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-            </intent-filter>
-        </receiver>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
         <service android:name=".SleepModeService" />
+
+        <receiver android:name=".AlertReceiver" android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
