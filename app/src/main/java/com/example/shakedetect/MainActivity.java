@@ -60,10 +60,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
         sharedPrefs = getSharedPreferences("MySharedPref", MODE_PRIVATE);
 
-
-
-
-
         //////////////////////////////////////////////////////// clock
 
         clock_swich = findViewById(R.id.feature1Switch);
@@ -82,32 +78,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         clockText.setText(sharedPrefs.getString("TimeTex", "Alarm"));
 
 
-
-
-
-
         //////////////////////////////////////////////////////// shake
-
-//        shake_switch = findViewById(R.id.shakeSwitch);
-//        shakeText = findViewById(R.id.shake_ID);
-//
-//
-//
-//        shake_switch.setChecked(sharedPrefs.getBoolean("SaveShakeSwitch", false));
-//        shake_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                SharedPreferences.Editor editor = getSharedPreferences("MySharedPref", MODE_PRIVATE).edit();
-//                if (isChecked) {
-//                    startService(new Intent(MainActivity.this, ShakeService.class));
-//                    editor.putBoolean("SaveShakeSwitch", true);
-//                } else {
-//                    stopService(new Intent(MainActivity.this, ShakeService.class));
-//                    editor.putBoolean("SaveShakeSwitch", false);
-//                }
-//                editor.apply();
-//            }
-//        });
 
 
         shake_switch = findViewById(R.id.shakeSwitch);
@@ -252,11 +223,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         c.set(Calendar.MINUTE,minute);
         c.set(Calendar.SECOND,0);
         updateTimeText(hourOfDay,minute);
-//        sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-
-
-//        clock_swich.setChecked(sharedPrefs.getBoolean("AlarmclockSwich", false));
-//        shake_switch.setChecked(sharedPrefs.getBoolean("SaveShakeSwitch", false));
         clock_swich.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -274,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                         x.speed_Rotate=Integer.parseInt(speedRotate);
                         System.out.println(speedRotate);
                         editor.putString("lastrotateSpeedNum",speedRotate );
-//                        editor.putBoolean("AlarmclockSwich", true);
+//                       editor.putBoolean("AlarmclockSwich", true);
                         startAlarm(c);
                     }
                     else
@@ -285,9 +251,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 }
                 else
                 {
-//                    editor.putBoolean("AlarmclockSwich", false);
+//                   editor.putBoolean("AlarmclockSwich", false);
                     cancelAlarm();
-
 
                 }
                 editor.putBoolean("AlarmclockSwich", isChecked);
