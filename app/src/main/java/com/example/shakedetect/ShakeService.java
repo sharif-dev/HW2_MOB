@@ -93,7 +93,7 @@ public class ShakeService extends Service {
             wl.acquire();
             wl.release();
         } else {
-            Toast.makeText(getApplicationContext(), "SHAKED", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "SHAKED", Toast.LENGTH_SHORT).show();
         }
     }
 

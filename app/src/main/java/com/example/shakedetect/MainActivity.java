@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.TimedText;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -76,6 +77,13 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         });
         rotateSpeedTex=findViewById(R.id.rotate_speed);
 
+        clock_swich.setChecked(sharedPrefs.getBoolean("AlarmclockSwich", false));
+        rotateSpeedTex.setText(sharedPrefs.getString("lastrotateSpeedNum", ""));
+        clockText.setText(sharedPrefs.getString("TimeTex", "Alarm"));
+
+
+
+
 
 
         //////////////////////////////////////////////////////// shake
@@ -125,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                         editor.putBoolean("SaveShakeSwitch", true);
                         editor.putString("lastshakeSensitivityNum", shakeSensitivityNum);
                     } else {
+                        clock_swich.setChecked(false);
                         Toast.makeText(getApplicationContext(), "Enter Shake Sensitivity", Toast.LENGTH_SHORT).show();
                     }
 
@@ -229,8 +238,11 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-//        clock_swich.setChecked(false);
 
+        SharedPreferences.Editor editor = getSharedPreferences("MySharedPref", MODE_PRIVATE).edit();
+        clock_swich.setChecked(false);
+        editor.putBoolean("AlarmclockSwich", false);
+        editor.apply();
 
         System.out.println("hours"+hourOfDay);
         System.out.println("minute"+minute);
@@ -240,19 +252,17 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         c.set(Calendar.MINUTE,minute);
         c.set(Calendar.SECOND,0);
         updateTimeText(hourOfDay,minute);
-        sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+//        sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
 
 
-//            if (sharedPrefs.getBoolean("AlarmclockSwich", false)) {
-//            rotateSpeedTex.setText(sharedPrefs.getString("lastrotateSpeedNum", ""));
-//        }
-        clock_swich.setChecked(sharedPreferences.getBoolean("AlarmclockSwich", false));
+//        clock_swich.setChecked(sharedPrefs.getBoolean("AlarmclockSwich", false));
+//        shake_switch.setChecked(sharedPrefs.getBoolean("SaveShakeSwitch", false));
         clock_swich.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                SharedPreferences.Editor editor = getSharedPreferences("sharedPreferences", MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = getSharedPreferences("MySharedPref", MODE_PRIVATE).edit();
                 speedRotate = rotateSpeedTex.getText().toString();
 
 
@@ -260,10 +270,11 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 {
                     if(!speedRotate.isEmpty())
                     {
+
                         x.speed_Rotate=Integer.parseInt(speedRotate);
                         System.out.println(speedRotate);
-
-                        editor.putBoolean("AlarmclockSwich", true);
+                        editor.putString("lastrotateSpeedNum",speedRotate );
+//                        editor.putBoolean("AlarmclockSwich", true);
                         startAlarm(c);
                     }
                     else
@@ -274,63 +285,24 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 }
                 else
                 {
-                    editor.putBoolean("AlarmclockSwich", false);
+//                    editor.putBoolean("AlarmclockSwich", false);
                     cancelAlarm();
 
 
                 }
+                editor.putBoolean("AlarmclockSwich", isChecked);
                 editor.apply();
 
             }
         });
 
 
-
-//        if (sharedPrefs.getBoolean("SaveSleepModeSwitch", false))
-//            angular_value_editText.setText(sharedPrefs.getString("lastDegree", ""));
-//
-//        sleep_mode_switch.setChecked(sharedPrefs.getBoolean("SaveSleepModeSwitch", false));
-//
-//        sleep_mode_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                SharedPreferences.Editor editor = getSharedPreferences("MySharedPref", MODE_PRIVATE).edit();
-//                angular_value = angular_value_editText.getText().toString();
-//                if (isChecked) {
-//                    if (!angular_value.isEmpty()) {
-//                        boolean active = deviceManger.isAdminActive(compName);
-//                        if (active) {
-//                            Intent intent = new Intent(MainActivity.this, SleepModeService.class);
-//                            intent.putExtra(degree_id, angular_value);
-//                            startService(intent);
-//                        } else {
-//                            alertDialog();
-//                        }
-//                        editor.putBoolean("SaveSleepModeSwitch", true);
-//                        editor.putString("lastDegree", angular_value);
-//                    }else {
-//                        sleep_mode_switch.setChecked(false);
-//                        Toast.makeText(getApplicationContext() , "enter angular value" , Toast.LENGTH_SHORT).show();
-//                    }
-//                } else {
-//                    deviceManger.removeActiveAdmin(compName); // felan
-//                    stopService(new Intent(MainActivity.this, SleepModeService.class));
-//                    editor.putBoolean("SaveSleepModeSwitch", false);
-//                }
-//                editor.apply();
-//            }
-//        });
-
-
-
-
-
-
-
-
     }
 
     private void updateTimeText(int hourOfDay,int minute) {
+
         String timeTex="";
+        SharedPreferences.Editor editor = getSharedPreferences("MySharedPref", MODE_PRIVATE).edit();
 
         if(minute<10){
             timeTex +=Integer.toString(hourOfDay)+" : "+"0"+Integer.toString(minute);
@@ -338,10 +310,13 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         }
         else{
             timeTex +=Integer.toString(hourOfDay)+" : "+Integer.toString(minute);
+
         }
 
-
+        editor.putString("TimeTex",timeTex );
+        editor.apply();
         clockText.setText(timeTex);
+
 
     }
 
